@@ -1,0 +1,35 @@
+{
+  "name": "hello-world",
+  "version": "0.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "type": "module",
+  "dependencies": {
+    "@coffeeblackai/aperturedb-node": "github:coffeeblackai/aperturedb-node",
+    "@langchain/community": "^0.3.22",
+    "@langchain/core": "^0.3.27",
+    "axios": "^1.7.9",
+    "faiss-node": "^0.5.1",
+    "langchain": "^0.3.9",
+    "pdf-parse": "^1.1.1",
+    "typescript": "^5.7.2",
+    "uuid": "^11.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "typescript": "^5.7.2"
+  },
+  "main": "ss_ingest.js",
+  "scripts": {
+    "tsc": "tsc && mv dist/aperturedb.js dist/aperturedb.cjs",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ingest": "node ss_ingest.js",
+    "search": "node ss_search.js",
+    "demo": "npm run tsc && npm run ingest && npm run search"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
