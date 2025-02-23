@@ -1,13 +1,14 @@
-import pkg from "./dist/aperturedb.cjs";
-const  { ApertureDBStore, ApertureDBStoreOptions }  = pkg;
+// import pkg from "./dist/aperturedb.cjs";
+// const  { ApertureDBStore, ApertureDBStoreOptions }  = pkg;
 
+import { ApertureDBStore, ApertureDBStoreOptions } from "@aperture.io/aperturedb";
 import { OpenAIEmbeddings } from "@langchain/openai";
 
 
 const options = {
-    host: "localhost",
+    host: "wft-mc4gg0eu.farm0000.cloud.aperturedata.dev",
     username: "admin",
-    password: "admin",
+    password: "workflowtest@135",
     descriptorSet: "lcjs",
     dimensions: 3072
   };

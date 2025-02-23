@@ -2,8 +2,10 @@ import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import { OpenAIEmbeddings } from "@langchain/openai";
 // import { FaissStore } from "@langchain/community/vectorstores/faiss";
-import pkg from "./dist/aperturedb.cjs";
-const  { ApertureDBStore, ApertureDBStoreOptions }  = pkg;
+// import pkg from "./dist/aperturedb.cjs";
+// const  { ApertureDBStore, ApertureDBStoreOptions }  = pkg;
+import { ApertureDBStore } from "./dist/aperturedb.js"
+
 
 // Create a new instance of the RecursiveCharacterTextSplitter
 const textSplitter = new RecursiveCharacterTextSplitter({
@@ -23,9 +25,9 @@ const docs = await loader.load();
 const allSplits = await textSplitter.splitDocuments(docs);
 
 const options = {
-  host: "localhost",
+  host: "wft-mc4gg0eu.farm0000.cloud.aperturedata.dev",
   username: "admin",
-  password: "admin",
+  password: "workflowtest@135",
   descriptorSet: "lcjs",
   dimensions: 3072
 };
