@@ -2,7 +2,7 @@ import { EmbeddingsInterface } from "@langchain/core/embeddings";
 import { SaveableVectorStore } from "@langchain/core/vectorstores";
 import { Document } from "@langchain/core/documents";
 import { v4 as uuidv4 } from 'uuid';
-import { ApertureClient } from "@coffeeblackai/aperturedb-node";
+import { ApertureClient, LogLevel } from "@coffeeblackai/aperturedb-node";
 
 
 export interface ApertureDBStoreOptions {
@@ -45,6 +45,7 @@ export class ApertureDBStore extends SaveableVectorStore {
       username: options.username,
       password: options.password
     });
+    this.client.setLogLevel(LogLevel.DEBUG);
 
     console.log("Creating ApertureDBStore");
     this.options = options;
@@ -65,17 +66,14 @@ export class ApertureDBStore extends SaveableVectorStore {
       const vector = vectors[index];
       const document = documents[index];
       const id = uuidv4();
-      this.client.descriptors.addDescriptor({
+      await this.client.descriptors.addDescriptor({
         set: this.options.descriptorSet + "",
         blob: Float32Array.from(vector),
         properties: {
           id: id,
           document: document.pageContent
-        }
-      }).then((response) => {
-        console.log(`Vector added . ${JSON.stringify(response)}`);
-        ids.push(id);
-      });
+        }});
+      ids.push(id);
     }
     return ids;
   }
