@@ -1,5 +1,5 @@
 import { EmbeddingsInterface } from "@langchain/core/embeddings";
-import { SaveableVectorStore } from "@langchain/core/vectorstores";
+import { VectorStore } from "@langchain/core/vectorstores";
 import { Document } from "@langchain/core/documents";
 import { v4 as uuidv4 } from 'uuid';
 import { ApertureClient, LogLevel } from "@coffeeblackai/aperturedb-node";
@@ -18,7 +18,7 @@ export interface ApertureDBStoreOptions {
   textProperty?: string;
 }
 
-export class ApertureDBStore extends SaveableVectorStore {
+export class ApertureDBStore extends VectorStore {
   options: ApertureDBStoreOptions;
   client: ApertureClient;
 
@@ -92,9 +92,5 @@ export class ApertureDBStore extends SaveableVectorStore {
   close(){
     console.log("Closing ApertureDBStore");
     this.client.destroy();
-  }
-
-  async save(directory: string): Promise<void> {
-    console.log(`Saving ApertureDBStore ${directory}`);
   }
 }
