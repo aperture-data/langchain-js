@@ -13,4 +13,7 @@ Ensure you have a `.env` file in the root of your project with the following var
 APERTURE_HOST=<your-aperture-host>
 APERTURE_USER=<your-aperture-username>
 APERTURE_PASSWORD=<your-aperture-password>
+LOG_LEVEL=INFO
+LANGCHAIN_DESCCRIPTOR_SET=lcjs
+LANGCHAIN_DESCCRIPTOR_DIMENSIONS=3072
 ```

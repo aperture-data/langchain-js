@@ -23,13 +23,15 @@
     "nodemon": "^2.0.15",
     "typescript": "^5.7.2"
   },
-  "main": "ss_ingest.js",
+  "main": "index.js",
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "ingest": "node ss_ingest.js",
     "search": "node ss_search.js",
-    "demo": "npm run tsc && npm run ingest && npm run search"
+    "demo": "npm run tsc && npm run ingest && npm run search",
+    "get_desc": "node src/downloadDescriptors.js",
+    "put_desc": "node src/uploadDescriptors.js"
   },
   "author": "",
   "license": "ISC",
