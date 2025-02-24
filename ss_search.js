@@ -1,16 +1,14 @@
-import pkg from "./dist/aperturedb.cjs";
-const  { ApertureDBStore, ApertureDBStoreOptions }  = pkg;
-
+import { ApertureDBStore } from "./dist/aperturedb.js"
 import { OpenAIEmbeddings } from "@langchain/openai";
 
 
 const options = {
-    host: "localhost",
-    username: "admin",
-    password: "admin",
-    descriptorSet: "lcjs",
-    dimensions: 3072
-  };
+  host: process.env.APERTURE_HOST,
+  username: process.env.APERTURE_USER,
+  password: process.env.APERTURE_PASSWORD,
+  descriptorSet: "lcjs",
+  dimensions: 3072
+};
 
 
 // Create a new instance of the OpenAIEmbeddings

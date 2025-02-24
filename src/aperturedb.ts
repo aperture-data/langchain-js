@@ -1,10 +1,8 @@
-import { EmbeddingsInterface } from "@langchain/core/dist/embeddings";
-import { DocumentInterface } from "@langchain/core/documents";
+import { EmbeddingsInterface } from "@langchain/core/embeddings";
 import { VectorStore } from "@langchain/core/vectorstores";
 import { Document } from "@langchain/core/documents";
 import { v4 as uuidv4 } from 'uuid';
-const fs = require('node:fs/promises');
-import { ApertureClient } from "@coffeeblackai/aperturedb-node";
+import { ApertureClient, LogLevel } from "@coffeeblackai/aperturedb-node";
 
 
 export interface ApertureDBStoreOptions {
@@ -24,12 +22,13 @@ export class ApertureDBStore extends VectorStore {
   options: ApertureDBStoreOptions;
   client: ApertureClient;
 
-  async similaritySearchVectorWithScore(query: number[], k: number, filter?: this["FilterType"] | undefined): Promise<[DocumentInterface, number][]> {
+  async similaritySearchVectorWithScore(query: number[], k: number, filter?: this["FilterType"] | undefined): Promise<[Document, number][]> {
       const response = await this.client.descriptors.findDescriptors(Float32Array.from(query), {
         set: this.options.descriptorSet + "",
         k_neighbors: k,
         distances: true
       });
+      console.log(filter);
       return response.map((doc: any) => {
         return [doc, doc.distance]
       });
@@ -46,6 +45,7 @@ export class ApertureDBStore extends VectorStore {
       username: options.username,
       password: options.password
     });
+    this.client.setLogLevel(LogLevel.DEBUG);
 
     console.log("Creating ApertureDBStore");
     this.options = options;
@@ -66,17 +66,14 @@ export class ApertureDBStore extends VectorStore {
       const vector = vectors[index];
       const document = documents[index];
       const id = uuidv4();
-      this.client.descriptors.addDescriptor({
+      await this.client.descriptors.addDescriptor({
         set: this.options.descriptorSet + "",
         blob: Float32Array.from(vector),
         properties: {
           id: id,
           document: document.pageContent
-        }
-      }).then((response) => {
-        console.log(`Vector added . ${JSON.stringify(response)}`);
-        ids.push(id);
-      });
+        }});
+      ids.push(id);
     }
     return ids;
   }
